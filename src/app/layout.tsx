@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://docs.cookiechain.io"),
+  metadataBase: new URL("https://docs.gorbagana.cash"),
   title: {
     default: "Cookie Chain Docs",
     template: "%s | Cookie Chain Docs",
