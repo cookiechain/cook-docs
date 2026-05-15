@@ -1,14 +1,60 @@
 import Link from "next/link";
 import Image from "next/image";
+import {
+  BookOpen,
+  Boxes,
+  Coins,
+  Cookie,
+  Cpu,
+  GitBranch,
+  HelpCircle,
+  Landmark,
+  LucideIcon,
+  Pickaxe,
+  Rocket,
+  ShieldCheck,
+  Sparkles,
+  Users,
+  Wallet,
+  Zap,
+} from "lucide-react";
 import { DocsPage, getPageNeighbors, navigation } from "./docs-content";
+import { DocsSearch } from "./docs-search";
+import { MobileDocsNav } from "./mobile-docs-nav";
+
+const pageIcons: Record<string, LucideIcon> = {
+  "/": Cookie,
+  "/getting-started": Rocket,
+  "/for-degens": Sparkles,
+  "/wallets": Wallet,
+  "/architecture": Cpu,
+  "/cook": Coins,
+  "/validators": ShieldCheck,
+  "/bridge": GitBranch,
+  "/bridge-mechanism": Zap,
+  "/for-builders": Pickaxe,
+  "/developer-guide": BookOpen,
+  "/cookie-jar": Landmark,
+  "/ecosystem": Boxes,
+  "/governance": Users,
+  "/faq": HelpCircle,
+};
+
+const sectionIcons: Record<string, LucideIcon> = {
+  Overview: BookOpen,
+  "The Chain": GitBranch,
+  Building: Pickaxe,
+  Community: Users,
+};
 
 export function DocsShell({ page }: Readonly<{ page: DocsPage }>) {
   const { previous, next } = getPageNeighbors(page);
+  const PageIcon = pageIcons[page.href] ?? BookOpen;
 
   return (
-    <main className="min-h-screen bg-[#030712] text-slate-100">
-      <header className="sticky top-0 z-20 border-b border-slate-900 bg-[#050816]/95 backdrop-blur">
-        <div className=" flex h-16  items-center gap-4 px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-[#07111f] text-slate-100">
+      <header className="sticky top-0 z-20 border-b border-slate-800 bg-[#0b1324]/95 backdrop-blur">
+        <div className="flex h-16 items-center gap-3 px-4 sm:gap-4 sm:px-6 lg:px-8">
           <Link href="/" className="flex items-center gap-3 font-semibold">
             <Image
               src="/cookie.jpeg"
@@ -16,19 +62,17 @@ export function DocsShell({ page }: Readonly<{ page: DocsPage }>) {
               width={36}
               height={36}
               priority
-              className="size-9 rounded-lg border border-blue-500/20 object-cover shadow-sm shadow-blue-950/60"
+              className="size-9 rounded-md border border-blue-500/20 object-cover shadow-sm shadow-blue-950/60"
             />
-            <span>Cookie Chain</span>
+            <div className="flex flex-col -space-y-1">
+              <span className="text-sm sm:text-base">Cookie Chain</span>
+              <span className="text-xs sm:text-sm text-blue-400">Docs</span>
+            </div>
           </Link>
-          <div className="ml-auto hidden w-full max-w-sm items-center rounded-lg border border-slate-800 bg-black/50 px-3 py-2 text-sm text-slate-400 sm:flex">
-            Search docs...
-            <span className="ml-auto rounded border border-slate-700 bg-slate-900 px-1.5 py-0.5 text-xs text-slate-500">
-              /
-            </span>
-          </div>
+          <DocsSearch />
           <Link
             href="/getting-started"
-            className="ml-auto rounded-lg bg-blue-500 px-3.5 py-2 text-sm font-medium text-white transition hover:bg-blue-400 sm:ml-0"
+            className="ml-auto rounded-md bg-blue-500 px-3 py-2 text-sm font-medium text-white transition hover:bg-blue-400 sm:ml-0 sm:px-3.5"
           >
             Start
           </Link>
@@ -36,68 +80,67 @@ export function DocsShell({ page }: Readonly<{ page: DocsPage }>) {
       </header>
 
       <div className="mx-auto grid  grid-cols-1 lg:grid-cols-[280px_minmax(0,1fr)]">
-        <aside className="hidden border-r border-slate-900 bg-[#050816]/80 px-6 py-8 lg:block">
-          <nav className="sticky top-24 space-y-8 text-sm">
-            {navigation.map((section) => (
-              <div key={section.title}>
-                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                  {section.title}
-                </p>
-                <div className="space-y-1">
-                  {section.links.map(([label, href]) => (
-                    <Link
-                      key={href}
-                      href={href}
-                      className={`block rounded-lg px-3 py-2 transition hover:bg-slate-900 hover:text-slate-100 ${
-                        href === page.href
-                          ? "bg-blue-500/10 font-medium text-blue-300"
-                          : "text-slate-400"
-                      }`}
-                    >
-                      {label}
-                    </Link>
-                  ))}
+        <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] overflow-y-auto border-r border-slate-800 bg-[#0b1324]/80 px-6 py-8 lg:block">
+          <nav className="space-y-8 pr-1 text-sm">
+            {navigation.map((section) => {
+              const SectionIcon = sectionIcons[section.title] ?? BookOpen;
+
+              return (
+                <div key={section.title}>
+                  <p className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                    <SectionIcon className="size-3.5 text-blue-400/80" />
+                    {section.title}
+                  </p>
+                  <div className="space-y-1">
+                    {section.links.map(([label, href]) => (
+                      <Link
+                        key={href}
+                        href={href}
+                        className={`block rounded-md px-3 py-2 transition hover:bg-slate-900 hover:text-slate-100 ${
+                          href === page.href
+                            ? "bg-blue-500/10 font-medium text-blue-300"
+                            : "text-slate-400"
+                        }`}
+                      >
+                        {label}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </nav>
         </aside>
 
         <section className="min-w-0">
-          <div className="border-b border-slate-900 bg-[#050816] px-4 py-3 lg:hidden">
-            <div className="flex gap-2 overflow-x-auto text-sm">
-              {navigation
-                .flatMap((section) => section.links)
-                .map(([label, href]) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    className={`shrink-0 rounded-full border px-3 py-1.5 ${href === page.href ? "border-blue-500/40 bg-blue-500/10 text-blue-200" : "border-slate-800 text-slate-300"}`}
-                  >
-                    {label}
-                  </Link>
-                ))}
-            </div>
-          </div>
+          <MobileDocsNav currentHref={page.href} />
 
-          <article className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-10 lg:py-14">
-            <div className="mb-8 rounded-3xl border border-blue-500/15 bg-gradient-to-br from-black via-[#061124] to-[#081632] p-6 shadow-2xl shadow-black/40 sm:p-10">
-              <p className="mb-4 inline-flex rounded-full border border-blue-400/30 bg-blue-500/10 px-3 py-1 text-sm font-medium text-blue-200">
-                <Image
-                  src="/cookie.jpeg"
-                  alt=""
-                  width={20}
-                  height={20}
-                  className="mr-2 size-5 rounded-full object-cover"
-                />
-                {page.label}
-              </p>
-              <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-blue-200 sm:text-6xl">
-                <span className="text-blue-400">/</span> {page.title}
-              </h1>
-              <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">
-                {page.description}
-              </p>
+          <article className="mx-auto max-w-6xl px-4 py-7 sm:px-6 sm:py-10 lg:px-10 lg:py-14">
+            <div className="mb-8 rounded-xl border border-blue-400/25 bg-gradient-to-br from-slate-950 via-[#102044] to-[#12306a] p-4 shadow-2xl shadow-blue-950/30 sm:p-10">
+              <div className="border-l-2 border-blue-400/70 pl-4 sm:border-l-0 sm:pl-0">
+                <p className="mb-4 inline-flex items-center rounded-md border border-blue-400/30 bg-blue-500/10 px-2 py-2 text-xs font-medium text-blue-200 sm:px-2 sm:text-sm">
+                  <Image
+                    src="/cookie.jpeg"
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="mr-2 size-4 rounded-sm object-cover sm:size-5"
+                  />
+                  {page.label}
+                </p>
+                <h1 className="flex max-w-5xl items-start gap-3 text-[2rem] font-bold leading-[1.08] tracking-tight text-blue-200 sm:gap-4 sm:text-6xl">
+                  <span className="mt-1 grid size-9 shrink-0 place-items-center rounded-lg border border-blue-400/25 bg-blue-500/10 text-blue-300 sm:mt-2 sm:size-14">
+                    <PageIcon className="size-5 sm:size-8" />
+                  </span>
+                  <span>
+                    <span className="mr-1 text-blue-400 sm:mr-2">/</span>
+                    {page.title}
+                  </span>
+                </h1>
+                <p className="mt-4 max-w-5xl text-[15px] leading-7 text-slate-300 sm:mt-5 sm:text-lg sm:leading-8">
+                  {page.description}
+                </p>
+              </div>
             </div>
 
             <div className="space-y-5 text-slate-300">{page.content}</div>
@@ -106,7 +149,7 @@ export function DocsShell({ page }: Readonly<{ page: DocsPage }>) {
               {previous ? (
                 <Link
                   href={previous.href}
-                  className="rounded-2xl border border-slate-900 bg-black/35 p-4 transition hover:border-blue-500/50"
+                  className="rounded-lg border border-slate-800 bg-slate-900/60 p-4 transition hover:border-blue-500/50"
                 >
                   <p className="text-sm text-slate-500">Previous</p>
                   <p className="mt-1 font-semibold text-blue-200">
@@ -119,7 +162,7 @@ export function DocsShell({ page }: Readonly<{ page: DocsPage }>) {
               {next ? (
                 <Link
                   href={next.href}
-                  className="rounded-2xl border border-slate-900 bg-black/35 p-4 text-right transition hover:border-blue-500/50"
+                  className="rounded-lg border border-slate-800 bg-slate-900/60 p-4 text-right transition hover:border-blue-500/50"
                 >
                   <p className="text-sm text-slate-500">Next</p>
                   <p className="mt-1 font-semibold text-blue-200">
