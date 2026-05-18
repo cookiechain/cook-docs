@@ -94,14 +94,15 @@ export const searchIndex = [
     title: "Multi-sig Bridge",
     href: "/bridge",
     section: "The Chain",
-    terms: "bridge multisig lock unlock solana cookie chain",
+    terms:
+      "bridge multisig lock unlock solana cookie chain squads pda vault proposals threshold",
   },
   {
     title: "Bridge Mechanism",
     href: "/bridge-mechanism",
     section: "The Chain",
     terms:
-      "pfun locked COOK 27 supply sCOOK cCOOK relayer squads multisig creator fees",
+      "pfun locked COOK 27 supply sCOOK cCOOK relayer squads multisig solana pda vault proposals creator fees",
   },
   {
     title: "For Builders",
@@ -161,12 +162,12 @@ function H3({ children }: Readonly<{ children: React.ReactNode }>) {
 }
 
 function P({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <p className="leading-8 text-slate-300">{children}</p>;
+  return <p className="leading-8 text-slate-300 [overflow-wrap:anywhere]">{children}</p>;
 }
 
 function List({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <ul className="ml-6 list-disc space-y-2 leading-7 marker:text-blue-400">
+    <ul className="ml-6 list-disc space-y-2 leading-7 marker:text-blue-400 [overflow-wrap:anywhere]">
       {children}
     </ul>
   );
@@ -178,7 +179,7 @@ function Code({ children }: Readonly<{ children: string }>) {
 
 function InlineCode({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <code className="rounded-md border border-blue-400/20 bg-blue-500/10 px-1.5 py-0.5 font-mono text-sm text-blue-200">
+    <code className="inline-block max-w-full break-all rounded-md border border-blue-400/20 bg-blue-500/10 px-1.5 py-0.5 align-baseline font-mono text-sm text-blue-200 whitespace-normal">
       {children}
     </code>
   );
@@ -193,7 +194,7 @@ function Callout({
       ? "border-orange-400/30 bg-orange-500/10 text-orange-100"
       : "border-blue-400/30 bg-blue-500/10 text-blue-100";
   return (
-    <div className={`rounded-lg border p-4 leading-7 ${toneClass}`}>
+    <div className={`min-w-0 overflow-hidden rounded-lg border p-4 leading-7 [overflow-wrap:anywhere] ${toneClass}`}>
       {children}
     </div>
   );
@@ -208,7 +209,7 @@ function ExternalLink({
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="font-medium text-blue-300 underline underline-offset-4"
+      className="font-medium text-blue-300 underline underline-offset-4 [overflow-wrap:anywhere]"
     >
       {children}
     </a>
@@ -790,6 +791,32 @@ export const docsPages = [
           Bridge vault address:{" "}
           <InlineCode>G3mm95M4ns7mk8oseWGJnirvgyMahMz3vZEUhdJn8oGX</InlineCode>
         </Callout>
+        <H3>Solana-side multisig</H3>
+        <P>
+          The Solana side of the bridge also uses a Squads multisig. This gives
+          the bridge a matching community-controlled coordination layer for
+          Solana-side approvals, proposals, and vault operations.
+        </P>
+        <List>
+          <li>
+            <strong>Multisig PDA, not a vault:</strong>{" "}
+            <InlineCode>E59ZcXNRRR6B9hKAxpmhF2MrmeiW7F4tJWH5NfaWToQc</InlineCode>
+          </li>
+          <li>
+            <strong>Solana bridge vault:</strong>{" "}
+            <InlineCode>DoYYCtcG2vfrE3HtxBBXiNVieMutvWBXsgbF3SKtYCyx</InlineCode>
+          </li>
+          <li>
+            <strong>Initial signer policy:</strong> 10 members with a 6/10 threshold.
+          </li>
+        </List>
+        <P>
+          Solana-side bridge proposals can be reviewed in Squads at{" "}
+          <ExternalLink href="https://app.squads.so/squads/DoYYCtcG2vfrE3HtxBBXiNVieMutvWBXsgbF3SKtYCyx/transactions?tab=Config">
+            app.squads.so
+          </ExternalLink>
+          .
+        </P>
         <Callout>
           Bridge frontend:{" "}
           <ExternalLink href="https://bridge.cookiechain.io">
@@ -868,6 +895,23 @@ export const docsPages = [
         <Callout>
           The bridge reserve is held in <strong>Vault 0</strong>. Vault address:{" "}
           <InlineCode>G3mm95M4ns7mk8oseWGJnirvgyMahMz3vZEUhdJn8oGX</InlineCode>
+        </Callout>
+        <P>
+          On Solana, bridge control is mirrored through a Squads multisig as
+          well. The multisig PDA is separate from the vault itself, and the vault
+          is the account that holds Solana-side bridge funds.
+        </P>
+        <Callout>
+          <strong>Solana-side bridge control</strong>
+          <br />
+          Multisig PDA: <InlineCode>E59ZcXNRRR6B9hKAxpmhF2MrmeiW7F4tJWH5NfaWToQc</InlineCode>
+          <br />
+          Bridge vault: <InlineCode>DoYYCtcG2vfrE3HtxBBXiNVieMutvWBXsgbF3SKtYCyx</InlineCode>
+          <br />
+          Proposals: {" "}
+          <ExternalLink href="https://app.squads.so/squads/DoYYCtcG2vfrE3HtxBBXiNVieMutvWBXsgbF3SKtYCyx/transactions?tab=Config">
+            Squads transactions page
+          </ExternalLink>
         </Callout>
         <H3>Operating principles</H3>
         <List>
@@ -1109,7 +1153,7 @@ wallet  = "~/.config/solana/id.json"`}</Code>
                     <td className="whitespace-nowrap px-4 py-3 font-medium text-blue-100">
                       {program}
                     </td>
-                    <td className="px-4 py-3 font-mono text-xs text-slate-300">
+                    <td className="max-w-[22rem] break-all px-4 py-3 font-mono text-xs text-slate-300">
                       {address}
                     </td>
                     <td className="px-4 py-3 text-slate-400">{description}</td>
