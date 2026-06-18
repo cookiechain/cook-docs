@@ -162,7 +162,11 @@ function H3({ children }: Readonly<{ children: React.ReactNode }>) {
 }
 
 function P({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <p className="leading-8 text-slate-300 [overflow-wrap:anywhere]">{children}</p>;
+  return (
+    <p className="leading-8 text-slate-300 [overflow-wrap:anywhere]">
+      {children}
+    </p>
+  );
 }
 
 function List({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -194,7 +198,9 @@ function Callout({
       ? "border-orange-400/30 bg-orange-500/10 text-orange-100"
       : "border-blue-400/30 bg-blue-500/10 text-blue-100";
   return (
-    <div className={`min-w-0 overflow-hidden rounded-lg border p-4 leading-7 [overflow-wrap:anywhere] ${toneClass}`}>
+    <div
+      className={`min-w-0 overflow-hidden rounded-lg border p-4 leading-7 [overflow-wrap:anywhere] ${toneClass}`}
+    >
       {children}
     </div>
   );
@@ -310,6 +316,21 @@ const genesisPrograms = [
     "Auction House",
     "hausS13jsjafwWwGqZTUQRmWyvyxn9EQpqMwV1PBBmk",
     "Metaplex auction house",
+  ],
+  [
+    "CookieBox DBC",
+    "DBCg4ugDEztk6MbqHEJvx5a5YGJTj45Jb5NvtQ48Rvsf",
+    "Meteora Dynamic Bonding Curve",
+  ],
+  [
+    "CookieBox DAMM v2",
+    "DAMMjDCEFTDkt7ywazZS8GoaLtjb3HaJo3pLbf64xrPY",
+    "Meteora Dynamic AMM",
+  ],
+  [
+    "CookieBox CLMM",
+    "CLMMmWqTtyNSomqXP3kETJy2SGKPdr31USsm4GfbLyKs",
+    "Concentrated Liquidity AMM",
   ],
 ];
 
@@ -800,14 +821,19 @@ export const docsPages = [
         <List>
           <li>
             <strong>Multisig PDA, not a vault:</strong>{" "}
-            <InlineCode>E59ZcXNRRR6B9hKAxpmhF2MrmeiW7F4tJWH5NfaWToQc</InlineCode>
+            <InlineCode>
+              E59ZcXNRRR6B9hKAxpmhF2MrmeiW7F4tJWH5NfaWToQc
+            </InlineCode>
           </li>
           <li>
             <strong>Solana bridge vault:</strong>{" "}
-            <InlineCode>DoYYCtcG2vfrE3HtxBBXiNVieMutvWBXsgbF3SKtYCyx</InlineCode>
+            <InlineCode>
+              DoYYCtcG2vfrE3HtxBBXiNVieMutvWBXsgbF3SKtYCyx
+            </InlineCode>
           </li>
           <li>
-            <strong>Initial signer policy:</strong> 10 members with a 6/10 threshold.
+            <strong>Initial signer policy:</strong> 10 members with a 6/10
+            threshold.
           </li>
         </List>
         <P>
@@ -898,17 +924,19 @@ export const docsPages = [
         </Callout>
         <P>
           On Solana, bridge control is mirrored through a Squads multisig as
-          well. The multisig PDA is separate from the vault itself, and the vault
-          is the account that holds Solana-side bridge funds.
+          well. The multisig PDA is separate from the vault itself, and the
+          vault is the account that holds Solana-side bridge funds.
         </P>
         <Callout>
           <strong>Solana-side bridge control</strong>
           <br />
-          Multisig PDA: <InlineCode>E59ZcXNRRR6B9hKAxpmhF2MrmeiW7F4tJWH5NfaWToQc</InlineCode>
+          Multisig PDA:{" "}
+          <InlineCode>E59ZcXNRRR6B9hKAxpmhF2MrmeiW7F4tJWH5NfaWToQc</InlineCode>
           <br />
-          Bridge vault: <InlineCode>DoYYCtcG2vfrE3HtxBBXiNVieMutvWBXsgbF3SKtYCyx</InlineCode>
+          Bridge vault:{" "}
+          <InlineCode>DoYYCtcG2vfrE3HtxBBXiNVieMutvWBXsgbF3SKtYCyx</InlineCode>
           <br />
-          Proposals: {" "}
+          Proposals:{" "}
           <ExternalLink href="https://app.squads.so/squads/DoYYCtcG2vfrE3HtxBBXiNVieMutvWBXsgbF3SKtYCyx/transactions?tab=Config">
             Squads transactions page
           </ExternalLink>
