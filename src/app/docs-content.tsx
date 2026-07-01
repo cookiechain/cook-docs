@@ -51,7 +51,7 @@ export const searchIndex = [
     href: "/",
     section: "Overview",
     terms:
-      "welcome cookie chain gorbagana solana fork of a fork community operated validators governance COOK",
+      "welcome cookie chain svm network fast low fees community operated validators governance COOK builders apps",
   },
   {
     title: "Getting Started",
@@ -345,9 +345,9 @@ export const docsPages = [
     content: (
       <>
         <P>
-          Cookie Chain is a fork of Gorbagana, which was a Solana fork. That
-          makes Cookie Chain a fork of a fork, but the point is simple: we keep
-          the SVM foundation and move in our own direction.
+          Cookie Chain is an independent SVM network for fast execution,
+          low-cost transactions, degen apps, builder experiments, validators,
+          and on-chain culture.
         </P>
         <P>
           Cookie Chain is a new memetic SVM: fast, cheap, culture-native, and
@@ -1257,8 +1257,8 @@ wallet  = "~/.config/solana/id.json"`}</Code>
       <>
         <H3>Is Cookie Chain Solana?</H3>
         <P>
-          Cookie Chain is a Solana fork. It is SVM-compatible and
-          tool-compatible, but it is its own chain with its own validator set,
+          Cookie Chain is an independent SVM network. It is compatible with
+          Solana tooling, but it is its own chain with its own validator set,
           native token COOK, and community governance.
         </P>
         <H3>Who runs the chain?</H3>

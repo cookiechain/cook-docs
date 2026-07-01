@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "Cookie Chain",
     "COOK",
     "Cookie Chain docs",
-    "Solana fork",
+    "SVM network",
     "SVM",
     "sCOOK",
     "cCOOK",
